@@ -4,6 +4,7 @@ package com.addressbooksystem;
 *@Description - To create a contacts in address book with first name, last name, address, city, state, zip,mobile number.
 *Add new contact in address book
 * Edit contact using person name in address book
+* Delete the person using person's name details
  */
 
 import java.util.Scanner;
@@ -71,6 +72,20 @@ public class AddressBook {
         }
     }
 
+    //delete the person details using person's name
+    public void deleteContact(String firstName) {
+        if(firstName == null) {
+            System.out.println("Address book is empty");
+        } else {
+            if(contacts.getFirstName().equalsIgnoreCase(firstName)) {
+                contacts = null;
+                System.out.println("Entered person name Contact is deleted from address book");
+            } else {
+                System.out.println("Entered person name contact was not found in address book" );
+            }
+        }
+    }
+
     //print contact details
     public String toString() {
         return contacts.toString();
@@ -85,6 +100,7 @@ public class AddressBook {
         addressBook.addNewContact();
         System.out.println("Enter the person name who's details want to edit :");
         addressBook.editContact(scanner.next());
+        addressBook.deleteContact(scanner.next());
         System.out.println(addressBook.toString());
     }
 }
