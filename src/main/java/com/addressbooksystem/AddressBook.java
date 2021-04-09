@@ -16,10 +16,11 @@ import java.util.Scanner;
 public class AddressBook {
 
     //instance variable creating multiple contacts
+    String addressBookName;
     ArrayList<Contacts> contactsList = new ArrayList<Contacts>();
 
     public void addNewContact() {
-        String firstName,lastName,address,city,state,email;
+        String firstName, lastName, address, city, state, email;
         int zip;
         long mobileNumber;
 
@@ -41,30 +42,30 @@ public class AddressBook {
         System.out.println("Enter the mobile number :");
         mobileNumber = scanner.nextLong();
 
-        Contacts contacts  = new Contacts(firstName, lastName, address, city, state, zip, mobileNumber, email);
+        Contacts contacts = new Contacts(firstName, lastName, address, city, state, zip, mobileNumber, email);
         System.out.println("contact added");
         contactsList.add(contacts);
     }
 
     //checking the duplicate entry of same person in address book
-    public boolean duplicateEntryCheck(String firstName)
-    {
-        for (Contacts contacts: contactsList) {
-            boolean existAlready=contacts.equals(firstName);
-            if(existAlready==true)
+    public boolean duplicateEntryCheck(String firstName) {
+        for (Contacts contacts : contactsList) {
+            boolean existAlready = contacts.equals(firstName);
+            if (existAlready == true)
                 return true;
         }
         return false;
     }
+
     //Edit person name
     public void editContact(String firstName) {
-        if(contactsList.isEmpty()) {
+        if (contactsList.isEmpty()) {
             System.out.println("Address book is empty");
         } else {
             int p = contactsList.size();
             int i;
-            for( i = 0; i < contactsList.size(); i++) {
-                if(contactsList.get(i).getFirstName().equalsIgnoreCase(firstName)) {
+            for (i = 0; i < contactsList.size(); i++) {
+                if (contactsList.get(i).getFirstName().equalsIgnoreCase(firstName)) {
                     System.out.println("you want edit details");
                     System.out.println("Enter 1 : Edit first name");
                     System.out.println("Enter 2 : Edit last name ");
@@ -133,7 +134,7 @@ public class AddressBook {
                     break;
                 }
             }
-            if(p == i) {
+            if (p == i) {
                 System.out.println("Contact not found");
             }
         }
@@ -141,22 +142,22 @@ public class AddressBook {
 
     //delete the person details using person's name
     public void deleteContact(String firstName) {
-        if(contactsList.isEmpty()) {
+        if (contactsList.isEmpty()) {
             System.out.println("Address book is empty");
         } else {
             int p = contactsList.size();
             int i;
-            for( i = 0; i < contactsList.size(); i++) {
-                if(contactsList.get(i).getFirstName().equalsIgnoreCase(firstName)) {
+            for (i = 0; i < contactsList.size(); i++) {
+                if (contactsList.get(i).getFirstName().equalsIgnoreCase(firstName)) {
                     Contacts contact = contactsList.get(i);
                     contact = null;
                     System.out.println("Entered person name Contact is deleted from address book");
                     break;
                 }
-        }
-        if(p == i) {
-            System.out.println("Entered contact is not fount address book");
-        }
+            }
+            if (p == i) {
+                System.out.println("Entered contact is not fount address book");
+            }
         }
     }
 
@@ -183,45 +184,26 @@ public class AddressBook {
         }
     }
 
-    public static void main(String[] args) {
-        System.out.println("Welcome to address book problem");
+    public void searchPersonByCity(String city) {
+        System.out.println("show person by city in " + addressBookName);
+        if (!contactsList.isEmpty()) {
+            for (int i = 0; i < contactsList.size(); i++) {
+                Contacts contact = contactsList.get(i);
+                if (contact.getCity() == city) {
+                    System.out.println(i + 1 + "." + contact.getFirstName().toString());
+                }
+            }
+        }
+    }
 
-        AddressBook addressBook = new AddressBook();
-        int choice = 0;
-        while (choice != 5){
-            Scanner scanner = new Scanner(System.in);
-            System.out.println("Enter your choice");
-            System.out.println("Enter 1 : Add  new contact");
-            System.out.println("Enter 2 : Edit contact");
-            System.out.println("Enter 3 : Delete contact");
-            System.out.println("Enter 4 : Print the Address Book");
-            System.out.println("Enter 5 : Exit");
-            choice = scanner.nextInt();
-            switch (choice) {
-
-                case 1:
-                    addressBook.addNewContact();
-                    break;
-
-                case 2:
-                    System.out.println("Enter the first name of contact you want to edit :");
-                    addressBook.editContact(scanner.next());
-                    break;
-
-                case 3:
-                    System.out.println("Enter the first name of contact you want to delete :");
-                    addressBook.deleteContact(scanner.next());
-
-                case 4:
-                    System.out.println(addressBook.toString());
-                    break;
-
-                case 5:
-                    System.exit(choice);
-                    break;
-
-                default:
-                    System.out.println("Enter a correct choice");
+    public void searchPersonByState(String state) {
+        System.out.println("show person by city in " + addressBookName);
+        if (!contactsList.isEmpty()) {
+            for (int i = 0; i < contactsList.size(); i++) {
+                Contacts contact = contactsList.get(i);
+                if (contact.getState() == state) {
+                    System.out.println(i + 1 + "." + contact.getFirstName().toString());
+                }
             }
         }
     }
