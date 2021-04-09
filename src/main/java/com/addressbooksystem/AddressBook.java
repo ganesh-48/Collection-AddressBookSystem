@@ -6,6 +6,8 @@ package com.addressbooksystem;
 * Edit contact using person name in address book
 * Delete the person using person's name details
 * Add multiple person's contact into address book
+* Delete all contact from address book
+* No duplicate entry of same person in address book
  */
 
 import java.util.ArrayList;
@@ -44,6 +46,16 @@ public class AddressBook {
         contactsList.add(contacts);
     }
 
+    //checking the duplicate entry of same person in address book
+    public boolean duplicateEntryCheck(String firstName)
+    {
+        for (Contacts contacts: contactsList) {
+            boolean existAlready=contacts.equals(firstName);
+            if(existAlready==true)
+                return true;
+        }
+        return false;
+    }
     //Edit person name
     public void editContact(String firstName) {
         if(contactsList.isEmpty()) {
@@ -158,6 +170,17 @@ public class AddressBook {
             }
         }
         return "";
+    }
+
+    //Delete all the contact from AddressBook
+    public void deleteAddressBook() {
+        if (!contactsList.isEmpty()) {
+            for (int i = 0; i < contactsList.size(); i++) {
+                Contacts contact = contactsList.get(i);
+                contact = null;
+                contactsList.remove(i);
+            }
+        }
     }
 
     public static void main(String[] args) {
